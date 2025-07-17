@@ -1,0 +1,33 @@
+.post {
+  border: 1px solid #ccc;
+  margin-bottom: 1em;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.post:hover {
+  border-color: #adadad;
+  background-color: #f6faff;
+}
+
+.actions {
+  margin-top: 10px;
+}
+
+.post .button {
+  margin-left: 10px;
+}
+
+.bold {
+  font-weight: 600;
+}
+
+.postsTitle {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.line {
+  margin: 10px 0;
+}

@@ -1,0 +1,31 @@
+.formContainer {
+  padding: 10px;
+}
+
+.line {
+  margin: 10px 0;
+}
+
+.lineTitle {
+  width: 50px;
+  text-align: right;
+}
+
+.button {
+  margin-right: 10px;
+}
+
+.error {
+  margin-left: 60px;
+  margin-top: 5px;
+  color: red;
+  font-size: 0.8em;
+}
+
+.actions {
+  margin-top: 10px;
+}
+
+label {
+  cursor: pointer;
+}
