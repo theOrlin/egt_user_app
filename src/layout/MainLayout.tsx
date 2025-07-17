@@ -7,7 +7,6 @@ const { Header, Content, Footer } = Layout;
 
 export default function MainLayout() {
   const location = useLocation();
-  console.log('E', location.pathname.substring(1));
   const [currentPage, setCurrentPage] = useState<string>(
     location.pathname.substring(1) || 'users'
   );

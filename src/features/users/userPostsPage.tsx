@@ -69,7 +69,6 @@ export default function UserPostsPage() {
   };
 
   const handleDeletePost = async () => {
-    console.log('PostForDeletion', postForDeletion);
     try {
       if (postForDeletion) {
         await deletePost(postForDeletion);
