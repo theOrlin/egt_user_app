@@ -9,6 +9,7 @@
 table {
   border-collapse: collapse;
   width: var(--table-width);
+  table-layout: fixed;
 }
 
 td {
@@ -23,6 +24,14 @@ th {
   text-align: left;
   border-bottom: 1px solid #adadad;
   padding: 7px;
+}
+
+.ownerHeaderCell {
+  width: 150px;
+}
+
+.statusHeaderCell {
+  width: 100px;
 }
 
 th:last-of-type {

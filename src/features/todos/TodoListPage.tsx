@@ -177,9 +177,9 @@ export default function TodoListPage() {
         <table>
           <thead>
             <tr>
-              <th>Owner</th>
+              <th className={styles.ownerHeaderCell}>Owner</th>
               <th>Title</th>
-              <th>Complete?</th>
+              <th className={styles.statusHeaderCell}>Complete?</th>
             </tr>
           </thead>
           <tbody>
