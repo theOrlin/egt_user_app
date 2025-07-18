@@ -1,19 +1,32 @@
+:root {
+  --table-width: 800px;
+}
+
 .tableContainer {
-  margin: 20px;
+  padding: 10px 20px;
 }
 
 table {
   border-collapse: collapse;
+  width: var(--table-width);
 }
 
 td {
   padding: 3px;
   border-bottom: 1px solid #e6e6e6;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 th {
+  text-align: left;
   border-bottom: 1px solid #adadad;
   padding: 7px;
+}
+
+th:last-of-type {
+  text-align: center;
 }
 
 tr:hover td {
@@ -31,4 +44,32 @@ tr:hover td {
 .status {
   width: 50px;
   text-align: center;
+}
+
+.filtersMenu {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.labelContainer {
+  text-align: right;
+}
+
+.filterContainer {
+  padding: 10px;
+  width: var(--table-width);
+}
+
+.pageButtons {
+  margin-top: 10px;
+  width: var(--table-width);
+}
+
+.statusDropdown {
+  min-width: 140px;
+}
+
+.ownerDropdown {
+  min-width: 160px;
 }

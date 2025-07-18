@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { fetchUsers } from './userSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import UserCard from './UserForm';
+import UserForm from './UserForm';
 import { Button, Collapse } from 'antd';
 import { Link } from 'react-router';
 
@@ -24,8 +24,7 @@ export default function Users() {
     label: user.name,
     children: (
       <>
-        <UserCard user={user} key={user.id} />
-
+        <UserForm user={user} key={user.id} />
         <Link to={`/users/${user.id}`}>
           <Button type="link">See {`${user.name}'s`} comments</Button>
         </Link>

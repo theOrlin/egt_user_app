@@ -36,9 +36,7 @@ export default function MainLayout() {
         <Content className={styles.pageContent}>
           <Outlet />
         </Content>
-        <Footer className={styles.footer}>
-          Users App ©2025 Created for EGT by Orlin Ivanov
-        </Footer>
+        <Footer className={styles.footer}>©2025 Orlin Ivanov</Footer>
       </Layout>
     </Layout>
   );

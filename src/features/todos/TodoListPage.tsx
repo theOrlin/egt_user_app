@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fetchTodos, type Todo } from '../../api/todoApi';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
+import { Button, Flex, Input, Select } from 'antd';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchUsers } from '../users/userSlice';
 import styles from './TodoListPage.module.css';
@@ -23,7 +23,7 @@ export default function TodoListPage() {
 
   const [statusFilter, setStatusFilter] = useState<statusFilterValue>('all');
   const [titleFilter, setTitleFilter] = useState('');
-  const [userFilter, setUserFilter] = useState<'all' | number>('all');
+  const [userFilter, setUserFilter] = useState<'All' | number>('All');
 
   useEffect(() => {
     if (users.length === 0) {
@@ -66,7 +66,7 @@ export default function TodoListPage() {
       .toLowerCase()
       .includes(titleFilter.toLowerCase());
 
-    const matchesUser = userFilter === 'all' || todo.userId === userFilter;
+    const matchesUser = userFilter === 'All' || todo.userId === userFilter;
 
     return matchesStatus && matchesTitle && matchesUser;
   });
@@ -105,52 +105,73 @@ export default function TodoListPage() {
     }
   });
 
+  const userNameOptionsList = [...userOptionsMap].map(([userId, username]) => ({
+    value: userId,
+    label: username,
+  }));
+  userNameOptionsList.splice(0, 0, { value: -1, label: 'All' });
+
+  const handleStatusChange = (value: statusFilterValue) => {
+    setStatusFilter(value);
+  };
+
+  const handleOwnerChange = (value: number | 'all') => {
+    setUserFilter(value === -1 ? 'All' : Number(value));
+  };
+
   return (
     <div>
       <h2>Todo List</h2>
-      <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
-        <div style={{ marginBottom: '1rem' }}>
-          <label>
-            Status:
-            <select
-              value={statusFilter}
-              onChange={(e) =>
-                setStatusFilter(e.target.value as statusFilterValue)
-              }>
-              <option value="all">All</option>
-              <option value="completed">Completed</option>
-              <option value="incomplete">Not Completed</option>
-            </select>
-          </label>
-
-          <label style={{ marginLeft: '1rem' }}>
-            Title:
-            <input
-              type="text"
-              value={titleFilter}
-              onChange={(e) => setTitleFilter(e.target.value)}
-              placeholder="Search by title..."
-            />
-          </label>
-
-          <label style={{ marginLeft: '1rem' }}>
-            User:
-            <select
-              value={userFilter}
-              onChange={(e) => {
-                const value = e.target.value;
-                setUserFilter(value === 'all' ? 'all' : Number(value));
-              }}>
-              <option value="all">All Users</option>
-              {[...new Set(todos.map((todo) => todo.userId))].map((userId) => (
-                <option key={userId} value={userId}>
-                  {userOptionsMap.get(userId)}
-                </option>
-              ))}
-            </select>
-          </label>
-        </div>
-      </div>
+      <Flex
+        justify="space-between"
+        align="center"
+        gap={30}
+        className={styles.filterContainer}>
+        <Flex justify="space-between" align="center" gap="small">
+          <div className={styles.labelContainer}>
+            <label htmlFor="user-filter">User:</label>
+          </div>
+          <Select
+            id="user-filter"
+            className={styles.ownerDropdown}
+            popupMatchSelectWidth={true}
+            value={userFilter}
+            onChange={handleOwnerChange}
+            options={userNameOptionsList}
+          />
+        </Flex>
+        <Flex justify="space-between" align="center" gap="small">
+          <div className={styles.labelContainer}>
+            <label htmlFor="title-filter">Title:</label>
+          </div>
+          <Input
+            id="title-filter"
+            type="text"
+            value={titleFilter}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setTitleFilter(e.target.value)
+            }
+            placeholder="Search by title..."
+          />
+        </Flex>
+        <Flex justify="space-between" align="center" gap="small">
+          <div className={styles.labelContainer}>
+            <label htmlFor="status-filter">Status:</label>
+          </div>
+          <Select
+            className={styles.statusDropdown}
+            popupMatchSelectWidth={true}
+            id="status-filter"
+            value={statusFilter}
+            onChange={handleStatusChange}
+            options={[
+              { value: 'all', label: 'All' },
+              { value: 'completed', label: 'Completed' },
+              { value: 'incomplete', label: 'Not Completed' },
+            ]}
+          />
+        </Flex>
+      </Flex>
 
       <div className={styles.tableContainer}>
         <table>
@@ -181,21 +202,25 @@ export default function TodoListPage() {
           </tbody>
         </table>
       </div>
-      <div>
+      <Flex
+        justify="space-between"
+        align="center"
+        gap="small"
+        className={styles.pageButtons}>
         <Button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}>
           Previous page
         </Button>
-        <span style={{ margin: '0 1rem' }}>
+        <div style={{ margin: '0 1rem' }}>
           Page {currentPage} of {totalPages}
-        </span>
+        </div>
         <Button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}>
           Next page
         </Button>
-      </div>
+      </Flex>
     </div>
   );
 }
